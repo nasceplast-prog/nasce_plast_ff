@@ -1,4 +1,142 @@
+
 <!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NASCE PLAST FF 2.0</title>
+<style>
+* {box-sizing:border-box}
+body {
+ margin:0;
+ background:#101010;
+ color:white;
+ font-family:Arial,sans-serif;
+ text-align:center;
+}
+header {
+ background:#e60000;
+ padding:25px 10px;
+ font-size:24px;
+ font-weight:bold;
+}
+main {padding:15px}
+.card {
+ background:#222;
+ margin:15px 0;
+ padding:20px;
+ border-radius:14px;
+}
+.setting {margin:22px 0}
+.setting label {
+ display:flex;
+ justify-content:space-between;
+ margin-bottom:12px;
+}
+input[type=range] {
+ width:100%;
+ accent-color:red;
+}
+.value {
+ color:#ff4444;
+ font-weight:bold;
+}
+button {
+ background:#e60000;
+ color:white;
+ border:0;
+ border-radius:8px;
+ padding:13px 18px;
+ margin:7px;
+ font-size:15px;
+}
+footer {padding:20px;color:#aaa}
+</style>
+</head>
+<body>
+
+<header>🔥 NASCE PLAST FF 🔥</header>
+
+<main>
+<div class="card">
+<h2>🎮 SENSIBILIDADE</h2>
+<p>Ajusta os valores como preferires.</p>
+<div id="settings"></div>
+
+<button onclick="resetValues()">RESTAURAR</button>
+<button onclick="copyValues()">COPIAR VALORES</button>
+<p id="message"></p>
+</div>
+
+<div class="card">
+<h3>⚡ DESEMPENHO</h3>
+<p>Fecha aplicações que não estás a utilizar para libertar memória.</p>
+</div>
+
+<div class="card">
+<h3>🏆 NASCE PLAST FF</h3>
+<p>Versão 2.0</p>
+</div>
+</main>
+
+<footer>© 2026 NASCE PLAST FF</footer>
+
+<script>
+const defaults = [
+ ["Geral",95],
+ ["Ponto vermelho",90],
+ ["Mira 2x",85],
+ ["Mira 4x",80],
+ ["Mira AWM",50],
+ ["Olhadinha",70]
+];
+
+const settings = document.getElementById("settings");
+
+defaults.forEach((item,i) => {
+ const div = document.createElement("div");
+ div.className = "setting";
+ div.innerHTML = `
+ <label>
+ <span>${item[0]}</span>
+ <span class="value" id="v${i}">${item[1]}</span>
+ </label>
+ <input type="range" min="0" max="200"
+ value="${item[1]}" id="s${i}">
+ `;
+ settings.appendChild(div);
+
+ document.getElementById("s"+i)
+ .addEventListener("input",e=>{
+ document.getElementById("v"+i).textContent=e.target.value;
+ });
+});
+
+function resetValues(){
+ defaults.forEach((item,i)=>{
+ document.getElementById("s"+i).value=item[1];
+ document.getElementById("v"+i).textContent=item[1];
+ });
+ document.getElementById("message").textContent="Valores restaurados!";
+}
+
+function copyValues(){
+ let result="NASCE PLAST FF 2.0\n";
+ defaults.forEach((item,i)=>{
+ result+=item[0]+": "+document.getElementById("s"+i).value+"\n";
+ });
+ if(navigator.clipboard && navigator.clipboard.writeText){
+ navigator.clipboard.writeText(result)
+ .then(()=>document.getElementById("message").textContent="Copiado!")
+ .catch(()=>document.getElementById("message").textContent=result);
+ } else {
+ document.getElementById("message").textContent=result;
+ }
+}
+</script>
+</body>
+  </html>
+  <!DOCTYPE html>
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
